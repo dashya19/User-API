@@ -57,15 +57,15 @@
 ## Требования для запуска
 
 * Java 17 JDK
-* Docker & Docker Compose (если запускаете контейнеры)
-* PostgreSQL (если запускаете локально без Docker)
+* Docker & Docker Compose (если нужно запускать контейнеры)
+* PostgreSQL (если нужно запускать локально без Docker)
 * Maven
 
 ---
 
 ## Переменные окружения / application.yml
 
-(Файл `application.yml` в репозитории содержит пример конфигурации. Убедитесь, что заданы корректные значения для подключения к PostgreSQL.)
+(Файл `application.yml` в репозитории содержит пример конфигурации. Необходимо убедиться, что заданы корректные значения для подключения к PostgreSQL.)
 
 Пример необходимых переменных (при запуске в контейнерах через docker-compose они задаются в `docker-compose.yml`):
 
@@ -85,11 +85,11 @@
 docker-compose up --build
 ```
 
-Сервис будет доступен по `http://localhost:8080` (проверьте `docker-compose.yml`).
+Сервис будет доступен по `http://localhost:8080` (указано в `docker-compose.yml`).
 
 ### Локально (без Docker)
 
-1. Запустите PostgreSQL и примените миграции (Liquibase автоматически выполнится при старте приложения, если включено в конфиг).
+1. Запуск PostgreSQL и применение миграции (Liquibase автоматически выполнится при старте приложения).
 2. Сборка и запуск приложения:
 
 ```bash
@@ -118,7 +118,7 @@ Liquibase выполняет создание таблиц `roles` и `users` с
 
 ```json
 {
-  "fio": "Иван Иванов",
+  "fio": "Смирнов Антон Алексеевич",
   "phoneNumber": "+71234567890",
   "avatar": "https://example.com/avatar.jpg",
   "roleName": "user"
@@ -132,7 +132,7 @@ Liquibase выполняет создание таблиц `roles` и `users` с
   "message": "Пользователь успешно создан",
   "data": {
     "id": "b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e",
-    "fio": "Иван Иванов",
+    "fio": "Смирнов Антон Алексеевич",
     "phoneNumber": "+71234567890",
     "avatar": "https://example.com/avatar.jpg",
     "role": {
@@ -142,11 +142,6 @@ Liquibase выполняет создание таблиц `roles` и `users` с
   }
 }
 ```
-
-**Ошибки:**
-
-* `400 Bad Request` — при некорректных данных (валидация).
-* `409 Conflict` — при дублировании номера телефона или роли.
 
 ---
 
@@ -167,7 +162,7 @@ GET http://localhost:8080/api/users?userID=b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e
   "message": "Пользователь найден",
   "data": {
     "id": "b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e",
-    "fio": "Иван Иванов",
+    "fio": "Смирнов Антон Алексеевич",
     "phoneNumber": "+71234567890",
     "avatar": "https://example.com/avatar.jpg",
     "role": {
@@ -177,10 +172,6 @@ GET http://localhost:8080/api/users?userID=b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e
   }
 }
 ```
-
-**Ошибки:**
-
-* `404 Not Found` — пользователь не найден.
 
 ---
 
@@ -193,7 +184,7 @@ GET http://localhost:8080/api/users?userID=b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e
 ```json
 {
   "id": "b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e",
-  "fio": "Иван Петров",
+  "fio": "Смирнов Антон Алексеевич",
   "phoneNumber": "+79998887766",
   "avatar": "https://example.com/new-avatar.jpg",
   "roleName": "admin"
@@ -207,7 +198,7 @@ GET http://localhost:8080/api/users?userID=b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e
   "message": "Пользователь успешно обновлен",
   "data": {
     "id": "b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e",
-    "fio": "Иван Петров",
+    "fio": "Смирнов Антон Алексеевич",
     "phoneNumber": "+79998887766",
     "avatar": "https://example.com/new-avatar.jpg",
     "role": {
@@ -217,11 +208,6 @@ GET http://localhost:8080/api/users?userID=b9a23f4e-8bfc-4d6d-8e41-9d71503cf39e
   }
 }
 ```
-
-**Ошибки:**
-
-* `404 Not Found` — пользователь не найден.
-* `409 Conflict` — дублирование номера телефона или роли.
 
 ---
 
@@ -244,108 +230,4 @@ DELETE http://localhost:8080/api/users?userID=b9a23f4e-8bfc-4d6d-8e41-9d71503cf3
 }
 ```
 
-**Ошибки:**
-
-* `404 Not Found` — пользователь не найден.
-* `409 Conflict` — роль не может быть удалена, если она используется другими пользователями.
-
 ---
-
-## Postman Collection (готовая для импорта)
-
-В файле ниже описаны все эндпоинты. Импортируйте JSON в Postman: **File → Import → Raw Text → вставьте JSON**.
-
-```json
-{
-  "info": {
-    "name": "User API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Create User",
-      "request": {
-        "method": "POST",
-        "header": [
-          {"key":"Content-Type","value":"application/json"}
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"fio\": \"Иван Иванов\", \"phoneNumber\": \"+71234567890\", \"avatar\": \"https://example.com/avatar.jpg\", \"roleName\": \"user\"}"
-        },
-        "url": {"raw": "http://localhost:8080/api/createNewUser", "protocol": "http", "host": ["localhost"], "port":"8080", "path":["api","createNewUser"]}
-      }
-    },
-    {
-      "name": "Get User",
-      "request": {
-        "method": "GET",
-        "url": {"raw": "http://localhost:8080/api/users?userID={{userID}}", "host":["localhost"],"port":"8080","path":["api","users"], "query":[{"key":"userID","value":"{{userID}}"}]}
-      }
-    },
-    {
-      "name": "Update User",
-      "request": {
-        "method": "PUT",
-        "header": [{"key":"Content-Type","value":"application/json"}],
-        "body": {"mode":"raw","raw":"{\"id\": \"{{userID}}\", \"fio\": \"Новое ФИО\" }"},
-        "url": {"raw":"http://localhost:8080/api/userDetailsUpdate","host":["localhost"],"port":"8080","path":["api","userDetailsUpdate"]}
-      }
-    },
-    {
-      "name": "Delete User",
-      "request": {
-        "method": "DELETE",
-        "url": {"raw":"http://localhost:8080/api/users?userID={{userID}}","host":["localhost"],"port":"8080","path":["api","users"],"query":[{"key":"userID","value":"{{userID}}"}]}
-      }
-    }
-  ]
-}
-```
-
-**Переменные окружения Postman:**
-
-* `userID` — UUID созданного пользователя.
-
----
-
-## Обработка ошибок
-
-Используется `GlobalExceptionHandler`. Ошибки возвращаются в формате:
-
-```json
-{
-  "timestamp": "2025-08-31T12:34:56",
-  "status": 400,
-  "error": "Ошибка валидации данных",
-  "message": "Некорректные данные в запросе: {fio=ФИО является обязательным}",
-  "path": "/api/createNewUser"
-}
-```
-
----
-
-## Валидация
-
-* `fio`: обязательное, от 2 до 255 символов
-* `phoneNumber`: обязательный, международный формат (регулярное выражение `^\+?[1-9]\d{1,14}$`)
-* `avatar`: URL (проверяется аннотацией `@URL`)
-* `roleName`: обязательное при создании, от 2 до 50 символов
-
-Ошибки возвращаются через `GlobalExceptionHandler` как `ErrorResponseDTO` с детальной информацией.
-
----
-
-## Кеширование
-
-* Кеширование реализовано для `users` и `roles`.
-* Конфигурация — `CacheConfig` с `ConcurrentMapCacheManager`.
-* Вставка / обновление / удаление помечены `@CacheEvict` для поддержания консистентности.
-
----
-
-## Контакты / как править README
-
-Если нужно — могу адаптировать README под GitHub (badges, CI, workflow), добавить complete Postman collection с примерами ответов, или сгенерировать OpenAPI/Swagger документацию.
-
-Спасибо — удачи с прохождением тестового задания!
