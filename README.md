@@ -1,5 +1,17 @@
 # User API
 
+![Java](https://img.shields.io/badge/Java-17-red.svg)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2.0-green.svg)
+![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-3.2.0-darkgreen.svg)
+![Hibernate Validator](https://img.shields.io/badge/Hibernate_Validator-8.0.1-blueviolet.svg)
+![MapStruct](https://img.shields.io/badge/MapStruct-1.5.5-purple.svg)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)
+![Liquibase](https://img.shields.io/badge/Liquibase-4.25.0-yellow.svg)
+![Docker](https://img.shields.io/badge/Docker-20.10-lightblue.svg)
+![Docker Compose](https://img.shields.io/badge/Docker_Compose-1.29.2-0db7ed.svg)
+![Caching](https://img.shields.io/badge/Caching-ConcurrentMapCacheManager-orange.svg)
+![Lombok](https://img.shields.io/badge/Lombok-1.18.30-pink.svg)
+
 **Описание:** это простое REST API на Spring Boot, которое предоставляет CRUD для сущности `User` и связанных `Role`. Проект реализован в соответствии с ТЗ: валидация входящих данных, работа с PostgreSQL, миграции Liquibase, Docker, кеширование и централизованная обработка ошибок.
 
 ---
@@ -12,9 +24,9 @@
 * Hibernate Validator (Jakarta Validation)
 * MapStruct (маппинги DTO ↔ Entity)
 * PostgreSQL
-* Liquibase (миграции) — `src/main/resources/db.changelog/db.changelog-master.yaml`
+* Liquibase (миграции)
 * Docker + Docker Compose
-* Кеширование: `ConcurrentMapCacheManager` (настройка в `CacheConfig`)
+* Кеширование
 * Lombok
 
 ---
