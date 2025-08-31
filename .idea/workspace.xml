@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85e64855-a389-4184-862e-0ea356772148" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/userapi/repository/RoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/userapi/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/userapi/config/CacheConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +63,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1756635363777</updated>
-      <workItem from="1756635364831" duration="8019000" />
+      <workItem from="1756635364831" duration="11218000" />
     </task>
     <servers />
   </component>
