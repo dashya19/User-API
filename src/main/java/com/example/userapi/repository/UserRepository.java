@@ -10,13 +10,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
-    Optional<User> findByPhoneNumber(String phoneNumber);
-
     boolean existsByPhoneNumber(String phoneNumber);
 
     @Query("SELECT u FROM User u JOIN FETCH u.role WHERE u.id = :id")
     Optional<User> findByIdWithRole(@Param("id") UUID id);
-
-    @Query("SELECT u FROM User u JOIN FETCH u.role")
-    List<User> findAllWithRoles();
 }

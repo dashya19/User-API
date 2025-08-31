@@ -25,7 +25,7 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 }

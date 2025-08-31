@@ -17,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateUserRequestDTO {
+    @NotNull(message = "ID пользователя является обязательным")
     private UUID id;
 
     @Size(min = 2, max = 255, message = "ФИО должно содержать от 2 до 255 символов")
